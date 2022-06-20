@@ -58,22 +58,28 @@
           <br />
           <h1 id="cityName">Kyiv</h1>
           <h2><span id="date">Monday</span></h2>
-          <h3>Clear</h3>
+          <h3 id="description">Clear</h3>
           <div class="row">
             <div class="col-6">
-              <span class="image">☀️</span><span class="temperature"> 19</span>
-              <span class="temperature-units">
-                <a href="#" id="celsius">°C</a> |
-                <a href="#" id="fahrenheit">°F</a>
-              </span>
+              <div class="weather">
+                <img
+                  src="http://openweathermap.org/img/wn/10d@2x.png"
+                  alt=""
+                  id="image"
+                  class="float-left"
+                />
+                <span class="temperature">19</span>
+                <span class="temperature-units">
+                  <a href="#" id="celsius" class="active">°C</a> |
+                  <a href="#" id="fahrenheit">°F</a>
+                </span>
+              </div>
             </div>
-            <div class="col-6">
+            <div class="col-6 applications">
               <p class="applications">
-                Precipitation: 20%
+                Humidity: <span id="humidity">66</span>%
                 <br />
-                Humidity: 66%
-                <br />
-                Wind: km/h
+                Wind: <span id="wind">8</span> km/h
               </p>
             </div>
           </div>
