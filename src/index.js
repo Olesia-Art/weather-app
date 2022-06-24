@@ -17,6 +17,28 @@ let day = days[now.getDay()];
 currentDate.innerHTML = `${day} ${hours}:${minutes}`;
 
 //
+function showForecast() {
+  let forecastElement = document.querySelector("#forecast");
+  let forecastHTML = `<div class="row">`;
+  forecastHTML =
+    forecastHTML +
+    `
+    <div class="col-2">
+      <div class="weather-date">Tue</div>
+      <img
+        src="http://openweathermap.org/img/wn/10d@2x.png"
+        alt=""
+        width="40"
+      />
+      <div class="weather-temperature">
+        <span class="weather-temperature-max">19°</span>
+        <span class="weather-temperature-min">16°</span>
+     </div>
+    </div>`;
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
 
 function showWeather(response) {
   let temperature = document.querySelector(".temperature");
@@ -90,3 +112,5 @@ let fahrenheitTemperature = document.querySelector("#fahrenheit");
 fahrenheitTemperature.addEventListener("click", showFahrenheit);
 
 let celsiusValue = null;
+
+showForecast();
