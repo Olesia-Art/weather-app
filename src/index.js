@@ -17,26 +17,48 @@ let day = days[now.getDay()];
 currentDate.innerHTML = `${day} ${hours}:${minutes}`;
 
 //
-function showForecast() {
+function getForecast(coordinates) {
+  let apiKey = "cfe05abaf5b67a4bfcbf2eff8aa44335";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(showForecast);
+}
+
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
+
+function showForecast(response) {
+  let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
-  let days = ["Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  console.log(response.data.daily);
   let forecastHTML = `<div class="row">`;
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      forecastHTML =
+        forecastHTML +
+        `
     <div class="col-2">
-      <div class="weather-date">${day}</div>
+      <div class="weather-date">${formatDay(forecastDay.dt)}</div>
       <img
-        src="http://openweathermap.org/img/wn/10d@2x.png"
+        src="http://openweathermap.org/img/wn/${
+          forecastDay.weather[0].icon
+        }.png"
         alt=""
         width="40"
       />
       <div class="weather-temperature">
-        <span class="weather-temperature-max">19°</span>
-        <span class="weather-temperature-min">16°</span>
+        <span class="weather-temperature-max">${Math.round(
+          forecastDay.temp.max
+        )}°</span>
+        <span class="weather-temperature-min">${Math.round(
+          forecastDay.temp.min
+        )}°</span>
      </div>
     </div>`;
+    }
   });
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
@@ -61,6 +83,8 @@ function showWeather(response) {
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   image.setAttribute("alt", response.data.weather[0].description);
+
+  getForecast(response.data.coord);
 }
 
 function currentPosition(position) {
@@ -115,4 +139,4 @@ fahrenheitTemperature.addEventListener("click", showFahrenheit);
 
 let celsiusValue = null;
 
-showForecast();
+seadch("Kyiv");
