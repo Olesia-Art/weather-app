@@ -139,4 +139,4 @@ fahrenheitTemperature.addEventListener("click", showFahrenheit);
 
 let celsiusValue = null;
 
-seadch("Kyiv");
+search("Kyiv");
